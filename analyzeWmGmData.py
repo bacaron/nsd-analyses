@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-aaa
+
 import os,sys,glob
 from matplotlib import colors as mcolors
 import numpy as np
