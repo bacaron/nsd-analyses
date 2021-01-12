@@ -25,38 +25,19 @@ For a better understanding of how this code was run locally, here is the local d
 
 	.
 	├── analyzeWmGmData.py
+	├── bl_download.sh
 	├── configs
-	│   ├── association_tracks.txt
-	│   ├── commissural_tracks.txt
 	│   ├── config.json
-	│   ├── distinct_colors.json
 	│   ├── distinct_colors.txt
-	│   ├── distinct_colors.txt.json
-	│   ├── frontal_lobes.txt
-	│   ├── insular_lobes.txt
-	│   ├── labels.txt
-	│   ├── limbic_lobes.txt
-	│   ├── motor_lobes.txt
-	│   ├── occipital_lobes.txt
-	│   ├── parietal_lobes.txt
-	│   ├── projection_tracks.txt
-	│   ├── somatosensory_lobes.txt
-	│   └── temporal_lobes.txt
-	├── __pycache__
-	│   └── scatterplot_scripts.cpython-36.pyc
+	│   └── labels.txt
+	├── main
 	├── README.md
 	└── utils
 	    ├── analyses.py
 	    ├── compile_data.py
-	    ├── plotting.py
-	    └── __pycache__
-	        ├── analyses.cpython-36.pyc
-	        ├── compile_data.cpython-36.pyc
-	        ├── plot_cortex_data.cpython-36.pyc
-	        ├── plotting.cpython-36.pyc
-	        └── plot_track_data.cpython-36.pyc
+	    └── plotting.py
 	
-	4 directories, 27 files
+	2 directories, 10 files
 
 <!--
 <sub> This material is based upon work supported by the National Science Foundation Graduate Research Fellowship under Grant No. 1342962. Any opinion, findings, and conclusions or recommendations expressed in this material are those of the authors(s) and do not necessarily reflect the views of the National Science Foundation. </sub>
@@ -102,8 +83,8 @@ A docker container exists containing all of the dependencies necessary for runni
 
 ### To run locally
 
-Before any of the scripts provided are ran, the user must set up two specific paths in the config.json file. 'topPath' is the filepath to the directory in where you want the data to be downloaded and analyses to be ran. This directory will be created by the bl_download.sh script if it does not already exist. 'scriptsPath' is the path to this repository on your local machine. 'configsPath' is the path to the configs directory containing the group subjectID pairings in xlsx format and the optic radiation segmentation indices in xlsx format. The other variables range in necessity. "groups" is necessary, but can be altered to look at only a subset of the group comparisons (CHM, CHM_Cont, STGD, STGD_Cont). "colors" is also necessary, but can be altered to be any color name in the matplotlib suite of colors. "diff_micro_measures" is also necessary, but can be altered to only include a subset of diffusion measures (DTI: ad, fa, md, rd; NODDI: ndi, isovf, odi). "diff_macro_measures" is also necessary, but can be altered to only include a subset of macrostructural measures (length, volume, count). "wholebrain_tracts" is a necessary list of all the tracts wanting to be analysed from the wholebrain segmentation. "or_tracts" is a necessary list of names of all the tracts found for the optic radiation segmentation. 
+Before any of the scripts provided are ran, the user must set up two specific paths in the config.json file. 'topPath' is the filepath to the directory in where you want the data to be downloaded and analyses to be ran. This directory will be created by the bl_download.sh script if it does not already exist. 'scriptsPath' is the path to this repository on your local machine. 'configsPath' is the path to the configs directory containing the config.json file. 'utilsPath' is the path to the python utility scripts. The other variables range in necessity. "groups" is necessary, but can be altered to look at only a subset of the group comparisons (run_1, run_2). "colors" is also necessary, but can be altered to be any color name in the matplotlib suite of colors. "diffusion_measures" is also necessary, but can be altered to only include a subset of diffusion measures (DTI: ad, fa, md, rd; NODDI: ndi, isovf, odi). "network_measures" is necessary but can be modified to use any of the network matrices outputs. "number_of_nodes" is the number of nodes desired for the tract profiles. 
 
-To run locally, the user first needs to download the appropriate data using the bl_download.sh shell script. Once the data is downloaded, the user can run via python3 the ilf-slf-or-analyses.py script to generate the summary data structures and figures. This route requires all of the dependencies to be installed on your machine.
+To run locally, the user first needs to download the appropriate data using the bl_download.sh shell script. Once the data is downloaded, the user can run via python3 the analyzeGmWmData.py script to generate the summary data structures and figures. This route requires all of the dependencies to be installed on your machine.
 
 If the user has singularity installed, they can run the entire analysis pipeline by running via shell/bash the main script. This will run the scripts for downloading and analyzing the data via singularity using the docker container described above. This route does not require all of the dependencies to be installed on your machine, and will reproduce the analyses exactly as they were ran for the paper.
