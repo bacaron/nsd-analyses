@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+aaa
 import os,sys,glob
 from matplotlib import colors as mcolors
 import numpy as np
@@ -86,7 +86,7 @@ track_data, track_data_cut, track_data_cut_mean = tract_profile_analyses(topPath
 print("plotting tract profilometry results complete")
 
 ### network analyses
-# print("plotting network results")
-# from analyses import network_analyses
+print("plotting network results")
+from analyses import network_analyses
 networks_density, networks_fa, nonzero_index, study_nonzero_index, networks_density_thrs_matrices, networks_fa_thrs_matrices, networks_density_mean, networks_fa_mean = network_analyses(topPath,groups,subjects,data_dir,img_dir,configs_dir,'distinct')
-# print("plotting network results complete")
+print("plotting network results complete")
