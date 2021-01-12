@@ -1,0 +1,11 @@
+lh_G_precentral
+lh_S_precentral-inf-part
+lh_S_precentral-sup-part
+rh_G_precentral
+rh_S_precentral-inf-part
+rh_S_precentral-sup-part
+
+
+
+
+

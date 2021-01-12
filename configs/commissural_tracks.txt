@@ -1,0 +1,9 @@
+forcepsMinor
+forcepsMajor
+parietalCC
+middleFrontalCC
+anterioFrontalCC
+leftContraMotorCerebellar
+rightContraMotorCerebellar
+leftContraAnterioFrontoCerebellar
+rightContraAnterioFrontoCerebellar
