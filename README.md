@@ -1,6 +1,6 @@
 # Natural Scenes Dataset - Diffusion study
 
-This is the code repository for the paper entitled _XX (link). This repository contains the code responsible for all figures and analyses generated in the paper. Specifically, this repository contains code for downloading the relevant data from brainlife.io, collating the data into relevant .csv files, analyzing the data, performing machine learning, and producing figure plots. The code here has been implemented in python3.6.
+This is the code repository for the paper entitled _XX (link). This repository contains the code responsible for all figures and analyses generated in the paper. Specifically, this repository contains code for downloading the relevant data from brainlife.io, collating the data into relevant .csv files, analyzing the data, and producing figure plots. The code here has been implemented in python3.6.
 <!--
 #![fig1](./reports/figures/fig1.png)
 
