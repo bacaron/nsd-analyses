@@ -24,20 +24,21 @@ Data used in this project can be found at the accompanying [brainlife.io project
 For a better understanding of how this code was run locally, here is the local directory structure:
 
 	.
-	├── analyzeWmGmData.py
 	├── bl_download.sh
 	├── configs
-	│   ├── config.json
-	│   ├── distinct_colors.txt
-	│   └── labels.txt
-	├── main
-	├── README.md
-	└── utils
-	    ├── analyses.py
-	    ├── compile_data.py
-	    └── plotting.py
+	│   ├── key.txt
+	│   ├── lh_hcp_lut.txt
+	│   ├── rh_hcp_lut.txt
+	│   └── label.json
+	├── convert_glasser_nsd.sh
+	├── convert.sh
+	├── convert-to-freesurfer.sh
+	├── prune_tree.sh
+	├── remap_nifti.py
+	├── reslice_data.sh
+	└── README.md
 	
-	2 directories, 10 files
+	1 directory, 12 files
 
 <!--
 <sub> This material is based upon work supported by the National Science Foundation Graduate Research Fellowship under Grant No. 1342962. Any opinion, findings, and conclusions or recommendations expressed in this material are those of the authors(s) and do not necessarily reflect the views of the National Science Foundation. </sub>
