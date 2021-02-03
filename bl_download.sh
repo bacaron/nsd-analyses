@@ -4,7 +4,6 @@ topDir=$1
 projectID="5e2b98fbe51f7a9aeb88c43c"
 datatypes="snr-cc noddi-wm noddi-cortex csd tractmeasures-dki tractmeasures-non-dki tractmeasures-or-dki tractmeasures-or-non-dki cortexmap-dki cortexmap-non-dki parc-stats-dki parc-stats-non-dki wmc-wholebrain wmc-wholebrain-clean wmc-optic-radiation wmc-optic-radiation-clean track-lmax6 track-lmax8 track-merged track-optic-radiation tensor-lmax8 tensor-dki parcellation networks-vwm"
 tags="run_1 run_2"
-subjects="subj05 subj06 subj07 subj08"
 
 for DTYPES in ${datatypes}
 do

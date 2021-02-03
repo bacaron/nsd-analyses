@@ -7,6 +7,9 @@ dki_measures="ad ak fa ga goodvertex isovf md mk ndi odi rd rk snr"
 dti_measures="ad fa goodvertex isovf md ndi odi rd snr"
 hemi="lh rh"
 
+module unload perl
+module load freesurfer
+
 for su in ${subjects}
 do
 	for ru in ${runs}

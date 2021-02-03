@@ -5,8 +5,12 @@ subjectID=$2
 projectID="5e2b98fbe51f7a9aeb88c43c"
 hemispheres="lh rh"
 
-module unload perl
-module load freesurfer
+module unload perl nodejs
+module load freesurfer hpss
+
+function bl {
+	singularity run docker://brainlife/cli $@
+}
 
 outpath=${topPath}/${subjectID}/"parcellation-glasser-nsd-provided"
 if [ ! -d ${outpath} ]; then
@@ -31,67 +35,68 @@ else
 fi
 
 # loop through hemispheres
-#for hemi in ${hemispheres}
-#do
-#	echo "${hemi}"
-#
-#	# convert glasser parc.mgz to .func.gii
-#	if [ -f ${outpath}/tmp/${hemi}.parc.func.gii ]; then
-#		echo "file exists. assuming stopped in middle. deleting and remaking"
-#		rm -rf ${outpath}/tmp/${hemi}.parc.func.gii
-#	fi
-#
-#	echo "converting .mgz to .func.gii"
-#	mris_convert -f ${topPath}/${subjectID}/freesurfer/output/label/${hemi}.HCP_MMP1.mgz \
-#		${topPath}/${subjectID}/freesurfer/output/surf/${hemi}.white \
-#		${outpath}/tmp/${hemi}.parc.func.gii
-#	echo "converting .mgz to .func.gii complete"
-#
-#
-#	# add 1 in order to set up labels.json properly. convert to label
-#	wb_command -metric-math 'x+1' \
-#		${outpath}/tmp/${hemi}.parc.func.gii \
-#		-var x ${outpath}/tmp/${hemi}.parc.func.gii
-#
-#	# convert to label.gii
-#	wb_command -metric-label-import ${outpath}/tmp/${hemi}.parc.func.gii \
-#		${topPath}/${hemi}_hcp_lut.txt ${outpath}/${hemi}.parc.label.gii \
-#		-unlabeled-value 1
-#
-#	# copy to dumb brainlife standard
-#	cp ${outpath}/${hemi}.parc.label.gii ${outpath}/${hemi}.parc.annot.gii
-#
-#	# convert surfaces to dumb brainlife standard
-#	mris_convert ${topPath}/${subjectID}/freesurfer/output/surf/${hemi}.inflated ${outpath}/${hemi}.parc.inflated.gii 
-#	mris_convert ${topPath}/${subjectID}/freesurfer/output/surf/${hemi}.white ${outpath}/${hemi}.parc.white.gii 
-#	mris_convert ${topPath}/${subjectID}/freesurfer/output/surf/${hemi}.pial ${outpath}/${hemi}.parc.pial.gii 
-#
-#	echo "${run} complete"
-#done
+for hemi in ${hemispheres}
+do
+	echo "${hemi}"
+
+	# convert glasser parc.mgz to .func.gii
+	if [ -f ${outpath}/tmp/${hemi}.parc.func.gii ]; then
+		echo "file exists. assuming stopped in middle. deleting and remaking"
+		rm -rf ${outpath}/tmp/${hemi}.parc.func.gii
+	fi
+
+	echo "converting .mgz to .func.gii"
+	mris_convert -f ${topPath}/${subjectID}/freesurfer/output/label/${hemi}.HCP_MMP1.mgz \
+		${topPath}/${subjectID}/freesurfer/output/surf/${hemi}.white \
+		${outpath}/tmp/${hemi}.parc.func.gii
+	echo "converting .mgz to .func.gii complete"
+
+
+	# add 1 in order to set up labels.json properly. convert to label
+	wb_command -metric-math 'x+1' \
+		${outpath}/tmp/${hemi}.parc.func.gii \
+		-var x ${outpath}/tmp/${hemi}.parc.func.gii
+
+	# convert to label.gii
+	wb_command -metric-label-import ${outpath}/tmp/${hemi}.parc.func.gii \
+		${topPath}/${hemi}_hcp_lut.txt ${outpath}/${hemi}.parc.label.gii \
+		-unlabeled-value 1
+
+	# copy to dumb brainlife standard
+	cp ${outpath}/${hemi}.parc.label.gii ${outpath}/${hemi}.parc.annot.gii
+
+	# convert surfaces to dumb brainlife standard
+	mris_convert ${topPath}/${subjectID}/freesurfer/output/surf/${hemi}.inflated ${outpath}/${hemi}.parc.inflated.gii 
+	mris_convert ${topPath}/${subjectID}/freesurfer/output/surf/${hemi}.white ${outpath}/${hemi}.parc.white.gii 
+	mris_convert ${topPath}/${subjectID}/freesurfer/output/surf/${hemi}.pial ${outpath}/${hemi}.parc.pial.gii 
+
+	echo "${run} complete"
+done
 
 # copy over label.json file needed for bl datatype
-#if [ ! -f ${outpath}/label.json ]; then
-#	cp ${topPath}/label.json ${outpath}/label.json
-#fi
-#
-## upload data to brainlife
-#echo "uploading parcellation surface to brainlife"
-#bl dataset upload --project ${projectID} \
-#	--subject ${subjectID} \
-#	--datatype neuro/parcellation/surface-deprecated \
-#	--lh_annot ${outpath}/lh.parc.annot.gii \
-#	--rh_annot ${outpath}/rh.parc.annot.gii \
-#	--lh_inflated_surf ${outpath}/lh.parc.inflated.gii \
-#	--rh_inflated_surf ${outpath}/rh.parc.inflated.gii \
-#	--lh_pial_surf ${outpath}/lh.parc.pial.gii \
-#	--rh_pial_surf ${outpath}/rh.parc.pial.gii \
-#	--lh_white_surf ${outpath}/lh.parc.white.gii \
-#	--rh_white_surf ${outpath}/rh.parc.white.gii \
-#	--label ${outpath}/label.json \
-#	--tag "hcp-mmp" \
-#	--tag "hcp-mmp-b" \
-#	--tag "nsd-provided"
-#
+if [ ! -f ${outpath}/label.json ]; then
+	cp ${topPath}/label.json ${outpath}/label.json
+fi
+
+# upload data to brainlife
+module unload nodejs
+echo "uploading parcellation surface to brainlife"
+bl dataset upload --project ${projectID} \
+	--subject ${subjectID} \
+	--datatype neuro/parcellation/surface-deprecated \
+	--lh_annot ${outpath}/lh.parc.annot.gii \
+	--rh_annot ${outpath}/rh.parc.annot.gii \
+	--lh_inflated_surf ${outpath}/lh.parc.inflated.gii \
+	--rh_inflated_surf ${outpath}/rh.parc.inflated.gii \
+	--lh_pial_surf ${outpath}/lh.parc.pial.gii \
+	--rh_pial_surf ${outpath}/rh.parc.pial.gii \
+	--lh_white_surf ${outpath}/lh.parc.white.gii \
+	--rh_white_surf ${outpath}/rh.parc.white.gii \
+	--label ${outpath}/label.json \
+	--tag "hcp-mmp" \
+	--tag "hcp-mmp-b" \
+	--tag "nsd-provided"
+module load nodejs
 ######### volume parcellation
 if [ ! -f ${outpath}/volume ]; then
 	mkdir -p ${outpath}/volume
@@ -139,7 +144,7 @@ mri_mask ${outpath}/volume/parc_tmp.nii.gz \
 	${outpath}/volume/parc_tmp_cortex.nii.gz
 
 # remap labels to start 1-(n-labels)
-python3 ${topPath}/remap_nifti.py \
+python3_conda ${topPath}/remap_nifti.py \
 	${outpath}/volume/parc_tmp_cortex.nii.gz \
 	${outpath}/volume/parc.nii.gz \
 	${outpath}/label.json
@@ -148,6 +153,7 @@ python3 ${topPath}/remap_nifti.py \
 cp ${topPath}/key.txt ${outpath}/volume/
 
 # upload to brainlife
+module unload nodejs
 echo "uploading parcellation surface to brainlife"
 bl dataset upload --project ${projectID} \
 	--subject ${subjectID} \
@@ -159,6 +165,7 @@ bl dataset upload --project ${projectID} \
 	--tag "hcp-mmp" \
 	--tag "hcp-mmp-b" \
 	--tag "nsd-provided"
+module load nodejs
 
 ## archive updated data
 #module load nodejs
