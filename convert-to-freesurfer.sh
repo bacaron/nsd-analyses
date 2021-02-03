@@ -19,10 +19,10 @@ do
 		cortexmap_dti_path="${topPath}/${su}/diffusion/${ru}/cortexmap-dti/cortexmap"
 
 		if [ ! -d ${cortexmap_dki_path}/freesurfer ]; then
-			mkdir ${cortexmap_dki_path}/freesurfer 
+			mkdir ${cortexmap_dki_path}/func/freesurfer 
 		fi
 		if [ ! -d ${cortexmap_dti_path}/freesurfer ] ;then
-			mkdir ${cortexmap_dti_path}/freesurfer
+			mkdir ${cortexmap_dti_path}/func/freesurfer
 		fi
 
 		for HEMI in ${hemi}
@@ -31,13 +31,13 @@ do
 			for dkm in ${dki_measures}
 			do
 				echo ${dkm}
-				mris_convert -f ${cortexmap_dki_path}/func/${HEMI}.${dkm}.func.gii ${cortexmap_dki_path}/surf/${HEMI}.midthickness.native.surf.gii ${cortexmap_dki_path}/freesurfer/${HEMI}.${dkm}.mgh
+				mris_convert -f ${cortexmap_dki_path}/func/${HEMI}.${dkm}.func.gii ${cortexmap_dki_path}/surf/${HEMI}.midthickness.native.surf.gii ${cortexmap_dki_path}/func/freesurfer/${HEMI}.${dkm}.mgh
 			done
 
 			for dtm in ${dti_measures}
 			do
 				echo ${dtm}
-				mris_convert -f ${cortexmap_dti_path}/func/${HEMI}.${dtm}.func.gii ${cortexmap_dti_path}/surf/${HEMI}.midthickness.native.surf.gii ${cortexmap_dti_path}/freesurfer/${HEMI}.${dtm}.mgh
+				mris_convert -f ${cortexmap_dti_path}/func/${HEMI}.${dtm}.func.gii ${cortexmap_dti_path}/surf/${HEMI}.midthickness.native.surf.gii ${cortexmap_dti_path}/func/freesurfer/${HEMI}.${dtm}.mgh
 			done
 		done
 	done

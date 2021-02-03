@@ -51,7 +51,6 @@ do
 		${outpath}/tmp/${hemi}.parc.func.gii
 	echo "converting .mgz to .func.gii complete"
 
-
 	# add 1 in order to set up labels.json properly. convert to label
 	wb_command -metric-math 'x+1' \
 		${outpath}/tmp/${hemi}.parc.func.gii \
@@ -97,6 +96,7 @@ bl dataset upload --project ${projectID} \
 	--tag "hcp-mmp-b" \
 	--tag "nsd-provided"
 module load nodejs
+
 ######### volume parcellation
 if [ ! -f ${outpath}/volume ]; then
 	mkdir -p ${outpath}/volume
@@ -144,7 +144,7 @@ mri_mask ${outpath}/volume/parc_tmp.nii.gz \
 	${outpath}/volume/parc_tmp_cortex.nii.gz
 
 # remap labels to start 1-(n-labels)
-python3_conda ${topPath}/remap_nifti.py \
+/N/project/plab/bacaron/anaconda3/bin/python3 ${topPath}/remap_nifti.py \
 	${outpath}/volume/parc_tmp_cortex.nii.gz \
 	${outpath}/volume/parc.nii.gz \
 	${outpath}/label.json
