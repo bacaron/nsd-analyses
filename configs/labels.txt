@@ -72,10 +72,6 @@ lh.ip0
 rh.ip0
 lh.v6a
 rh.v6a
-lh.vmv1
-rh.vmv1
-lh.vmv3
-rh.vmv3
 lh.pha2
 rh.pha2
 lh.v4t
@@ -86,7 +82,5 @@ lh.v3cd
 rh.v3cd
 lh.lo3
 rh.lo3
-lh.vmv2
-rh.vmv2
 lh.vvc
 rh.vvc
