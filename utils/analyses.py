@@ -16,7 +16,7 @@ def cortex_mapping_analyses(topPath,groups,subjects,data_dir,img_dir,cortex_map_
 	for measures in cortex_map_measures:
 		print(measures)
 		singleplotScatter(colors_dict,cortex_glasser[cortex_glasser['classID'] == groups[0]],cortex_glasser[cortex_glasser['classID'] == groups[1]],measures,measures,'structureID','subjectID','ravel','equality',True,img_dir,"cortex_map_glasser")
-	# plotGroupStructureAverage(groups,colors,cortex_glasser['structureID'].unique(),cortex_glasser,cortex_map_measures,'mean','sem',img_dir,'cortex_map_glasser')
+	plotGroupStructureAverage(groups,colors,cortex_glasser['structureID'].unique(),cortex_glasser,cortex_map_measures,'mean','sem',img_dir,'cortex_map_glasser')
 	print("glasser complete")
 
 	# aparc a2009s regions
@@ -27,7 +27,7 @@ def cortex_mapping_analyses(topPath,groups,subjects,data_dir,img_dir,cortex_map_
 	for measures in cortex_map_measures:
 		print(measures)
 		singleplotScatter(colors_dict,cortex_aparc[cortex_aparc['classID'] == groups[0]],cortex_aparc[cortex_aparc['classID'] == groups[1]],measures,measures,'structureID','subjectID','ravel','equality',True,img_dir,"cortex_map_aparc")
-	# plotGroupStructureAverage(groups,colors,cortex_aparc['structureID'].unique(),cortex_aparc,cortex_map_measures,'mean','sem',img_dir,'cortex_map_aparc')
+	plotGroupStructureAverage(groups,colors,cortex_aparc['structureID'].unique(),cortex_aparc,cortex_map_measures,'mean','sem',img_dir,'cortex_map_aparc')
 	print("aparc complete")
 
 	return cortex_glasser, cortex_aparc
